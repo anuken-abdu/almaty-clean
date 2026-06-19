@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="day">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Cleaning Almaty — Уборка салонов красоты в Алматы</title>
+<meta name="description" content="Поддерживаем безупречную чистоту салонов красоты с дезинфекцией.">
+<script>(function(){try{var t=localStorage.getItem('ca-theme')||'day';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+<style>
+:root{ --accent:#0E8FD6; --accent-2:#0B6FB0; --accent-soft:rgba(14,143,214,.32); }
+html[data-theme="day"]{
+  --bg:#F4F8FC; --bg-soft:#FFFFFF; --panel:rgba(255,255,255,.82);
+  --text:#0F1E2E; --muted:#5C6B7A; --line:rgba(15,30,46,.10);
+  --glass:rgba(255,255,255,.7); --glass-line:rgba(15,30,46,.09);
+  --header:rgba(255,255,255,.72);
+  --overlay1:rgba(8,40,70,.30); --overlay2:rgba(8,30,55,.55);
+  --glow-fb:radial-gradient(circle at 50% 25%,rgba(14,143,214,.16),transparent 60%),linear-gradient(160deg,#eaf3fb,#d6e8f6);
+}
+html[data-theme="night"]{
+  --bg:#0A1622; --bg-soft:#102031; --panel:rgba(13,26,40,.8);
+  --text:#EAF2F9; --muted:#90A2B3; --line:rgba(255,255,255,.10);
+  --glass:rgba(255,255,255,.05); --glass-line:rgba(255,255,255,.10);
+  --header:rgba(10,22,34,.6);
+  --overlay1:rgba(0,0,0,.30); --overlay2:rgba(0,0,0,.62);
+  --glow-fb:radial-gradient(circle at 50% 25%,rgba(14,143,214,.18),transparent 60%),linear-gradient(160deg,#0a1622,#102031);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1200px;margin:0 auto;padding:0 18px}
+a{color:inherit;text-decoration:none}
+
+.hdr{position:sticky;top:0;z-index:60;background:var(--header);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.hdr-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;letter-spacing:.3px;display:flex;align-items:center;gap:9px}
+.brand .dot{width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-soft)}
+.brand b{color:var(--accent);font-weight:800}
+.hdr-right{display:flex;align-items:center;gap:9px}
+.icbtn{width:42px;height:42px;display:grid;place-items:center;border-radius:11px;border:1px solid var(--glass-line);background:var(--glass);color:var(--text);cursor:pointer;transition:.2s}
+.icbtn svg{width:22px;height:22px}
+.icbtn:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 16px -5px var(--accent-soft)}
+
+.scrim{position:fixed;inset:0;background:rgba(5,20,35,.5);backdrop-filter:blur(2px);opacity:0;visibility:hidden;transition:.25s;z-index:70}
+.scrim.on{opacity:1;visibility:visible}
+.menu{position:fixed;top:0;right:0;height:100%;width:min(370px,88vw);background:var(--panel);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-left:1px solid var(--line);transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);z-index:80;display:flex;flex-direction:column;overflow-y:auto}
+.menu.on{transform:translateX(0)}
+.menu-top{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line)}
+.menu-nav{padding:10px 12px}
+.mcat{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);font-weight:700;padding:14px 12px 6px}
+.mlink{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;color:var(--text);font-weight:500;font-size:14px;transition:.16s}
+.mlink svg{width:19px;height:19px;color:var(--muted);flex:none}
+.mlink:hover{background:var(--glass);color:var(--accent)}
+.mlink:hover svg{color:var(--accent)}
+.mlink.active{background:var(--glass);color:var(--accent)}
+.mlink.active svg{color:var(--accent)}
+.menu-sec{padding:14px 18px;border-top:1px solid var(--line)}
+.dev{padding:18px;border-top:1px solid var(--line);margin-top:auto;color:var(--muted);font-size:13px;line-height:1.6}
+.dev a{color:var(--text);font-weight:600;border-bottom:1px solid var(--accent-soft)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:600;border-radius:13px;padding:14px 22px;cursor:pointer;transition:.2s;border:1px solid var(--glass-line);background:var(--glass);color:var(--text);width:100%}
+.btn svg{width:20px;height:20px}
+.btn-cta{border:none;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:700;box-shadow:0 10px 26px -10px var(--accent)}
+.btn-cta:hover{box-shadow:0 14px 32px -8px var(--accent);transform:translateY(-1px)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.hero{position:relative;min-height:82vh;min-height:82svh;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat}
+.hero-day{background-image:linear-gradient(var(--overlay1),var(--overlay2)),url('images/hero-day.jpg'),var(--glow-fb)}
+.hero-night{background-image:linear-gradient(var(--overlay1),var(--overlay2)),url('images/hero-night.jpg'),var(--glow-fb)}
+html[data-theme="day"] .hero-night{display:none}
+html[data-theme="night"] .hero-day{display:none}
+.hero-in{position:relative;z-index:2;width:100%;max-width:1200px;margin:0 auto;padding:40px 18px;color:#fff}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.4);border-left:3px solid var(--accent);padding:7px 13px;border-radius:6px;backdrop-filter:blur(4px);margin-bottom:18px}
+.hero h1{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(30px,7vw,54px);line-height:1.08;margin:0;text-shadow:0 2px 26px rgba(0,0,0,.45)}
+.hero h1 span{color:#fff}
+.hero p{max-width:540px;margin:16px 0 26px;font-size:16px;line-height:1.55;color:rgba(255,255,255,.92)}
+.hero-cta-row{display:flex;flex-wrap:wrap;gap:12px;max-width:430px}
+.hero-cta-row .btn{width:auto;flex:1;min-width:180px}
+
+.sec{padding:54px 0}
+.sec-head{margin-bottom:26px}
+.sec-eye{display:inline-block;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:10px;font-weight:700}
+.sec-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(24px,5.5vw,38px);margin:0;line-height:1.1}
+.sec-sub{color:var(--muted);margin-top:10px;max-width:660px;line-height:1.55}
+
+.cat-title{font-family:'Montserrat',sans-serif;font-weight:700;font-size:18px;margin:30px 0 14px;display:flex;align-items:center;gap:10px}
+.cat-title::before{content:"";width:22px;height:3px;border-radius:2px;background:var(--accent)}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(min-width:680px){.grid{grid-template-columns:1fr 1fr 1fr}}
+@media(min-width:1000px){.grid{grid-template-columns:1fr 1fr 1fr 1fr;gap:16px}}
+.card{position:relative;display:flex;flex-direction:column;gap:11px;padding:18px;border-radius:15px;background:var(--bg-soft);border:1px solid var(--glass-line);transition:.2s;overflow:hidden}
+.card:hover,.card:focus-within{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 14px 32px -20px var(--accent)}
+.card-ic{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(14,143,214,.14),rgba(11,111,176,.08));color:var(--accent);border:1px solid var(--accent-soft)}
+.card-ic svg{width:25px;height:25px}
+.card h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;margin:0;line-height:1.25;min-height:38px;display:flex;align-items:center}
+.card p{color:var(--muted);font-size:13px;line-height:1.45;margin:0;flex:1}
+.card-go{display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-weight:600;font-size:13px}
+.card-go svg{width:15px;height:15px}
+.card a.stretch{position:absolute;inset:0}
+
+.feat{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:680px){.feat{grid-template-columns:1fr 1fr 1fr}}
+.feat-item{display:flex;gap:13px;padding:18px;border-radius:14px;background:var(--bg-soft);border:1px solid var(--glass-line);transition:.2s}
+.feat-item:hover{border-color:var(--accent);box-shadow:0 10px 26px -18px var(--accent)}
+.feat-ic{flex:none;width:40px;height:40px;border-radius:10px;display:grid;place-items:center;border:1px solid var(--accent-soft);color:var(--accent);background:rgba(14,143,214,.08)}
+.feat-ic svg{width:21px;height:21px}
+.feat-item h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;margin:0 0 4px}
+.feat-item p{color:var(--muted);font-size:13px;line-height:1.45;margin:0}
+
+.why{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(min-width:880px){.why{grid-template-columns:1fr 1fr 1fr 1fr}}
+.why-card{padding:22px;border-radius:15px;background:var(--bg-soft);border:1px solid var(--glass-line)}
+.why-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;margin-bottom:12px}
+.why-ic svg{width:23px;height:23px}
+.why-card h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;margin:0 0 6px}
+.why-card p{color:var(--muted);font-size:13.5px;line-height:1.5;margin:0}
+
+.steps{display:grid;grid-template-columns:1fr;gap:13px}
+@media(min-width:760px){.steps{grid-template-columns:1fr 1fr 1fr 1fr}}
+.step{padding:20px;border-radius:15px;background:var(--bg-soft);border:1px solid var(--glass-line);position:relative}
+.step-n{font-family:'Montserrat',sans-serif;font-weight:800;font-size:26px;color:var(--accent);opacity:.5}
+.step h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:16px;margin:6px 0 6px}
+.step p{color:var(--muted);font-size:13.5px;line-height:1.5;margin:0}
+
+.cta-band{margin:8px 0;padding:34px 24px;border-radius:20px;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;text-align:center}
+.cta-band h3{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(22px,5vw,30px);margin:0 0 8px}
+.cta-band p{margin:0 0 20px;opacity:.92}
+.cta-band .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:440px;margin:0 auto}
+.cta-band .btn{background:#fff;color:var(--accent-2);border:none;width:auto;flex:1;min-width:170px;font-weight:700}
+.cta-band .btn.alt{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.5)}
+
+/* service page */
+.svc-hero{padding:28px 0 0}
+.back{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-weight:600;font-size:14px;padding:9px 14px;border:1px solid var(--glass-line);background:var(--glass);border-radius:11px;cursor:pointer;transition:.18s}
+.back svg{width:18px;height:18px}
+.back:hover{border-color:var(--accent);color:var(--accent)}
+.svc-ic{width:58px;height:58px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;margin:20px 0 14px}
+.svc-ic svg{width:30px;height:30px}
+.svc-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(26px,6.5vw,42px);margin:0;line-height:1.08}
+.svc-bar{width:60px;height:3px;background:var(--accent);margin:14px 0 16px;border-radius:2px}
+.svc-intro{color:var(--muted);font-size:16px;line-height:1.6;max-width:660px}
+.cta-sec{margin:28px 0 6px;display:flex;flex-direction:column;gap:12px;max-width:480px}
+
+.ft{border-top:1px solid var(--line);background:var(--bg-soft);margin-top:30px;padding:40px 0 120px}
+@media(min-width:780px){.ft{padding-bottom:46px}}
+.ft-grid{display:grid;grid-template-columns:1fr;gap:26px}
+@media(min-width:780px){.ft-grid{grid-template-columns:1.3fr 1fr 1fr}}
+.ft .brand{font-size:19px;margin-bottom:12px}
+.ft-contact{display:flex;flex-direction:column;gap:9px;color:var(--muted)}
+.ft-contact a{display:inline-flex;align-items:center;gap:10px;color:var(--text)}
+.ft-contact a svg{width:18px;height:18px;color:var(--accent)}
+.ft-h{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.ft-links{display:flex;flex-direction:column;gap:8px}
+.ft-links a{color:var(--muted);font-size:14px;transition:.15s}
+.ft-links a:hover{color:var(--accent)}
+.ft-dev{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+.ft-dev a{color:var(--text);font-weight:600;border-bottom:1px solid var(--accent-soft)}
+
+.mbar{position:fixed;left:0;right:0;bottom:0;z-index:55;display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--panel);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--accent-soft);box-shadow:0 -8px 24px -16px var(--accent);padding-bottom:env(safe-area-inset-bottom)}
+.mbar a{display:flex;flex-direction:column;align-items:center;gap:5px;padding:9px 4px 10px;color:var(--text);transition:.15s}
+.mbar .mic{display:grid;place-items:center;width:42px;height:42px;border-radius:13px;background:var(--glass);border:1px solid var(--glass-line);box-shadow:0 0 16px -6px var(--accent-soft);transition:.2s}
+.mbar .mic svg{width:23px;height:23px;color:var(--accent)}
+.mbar .mlbl{font-size:11px;font-weight:600}
+.mbar a:active .mic,.mbar a:hover .mic{border-color:var(--accent);box-shadow:0 0 20px -4px var(--accent);transform:translateY(-1px)}
+.mbar a:not(:last-child){border-right:1px solid var(--line)}
+@media(min-width:780px){.mbar{display:none}}
+
+.fab{position:fixed;right:16px;z-index:54;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;background:var(--panel);backdrop-filter:blur(12px);border:1px solid var(--glass-line);color:var(--text);cursor:pointer;transition:.25s;opacity:0;visibility:hidden;transform:translateY(8px)}
+.fab svg{width:22px;height:22px}
+.fab:hover{border-color:var(--accent);color:var(--accent)}
+.fab.show{opacity:1;visibility:visible;transform:translateY(0)}
+.fab-up{bottom:84px}
+@media(min-width:780px){.fab-up{bottom:24px}}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head><body>
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a href="index.html" class="brand"><span class="dot"></span>Cleaning&nbsp;<b>Almaty</b></a>
+    <div class="hdr-right">
+      <button class="icbtn" id="themeBtn" aria-label="Сменить тему"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14a8 8 0 01-10-10 8 8 0 1010 10z"/></svg></button>
+      <button class="icbtn" id="menuBtn" aria-label="Открыть меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<div class="scrim" id="scrim"></div>
+<aside class="menu" id="menu" aria-hidden="true">
+  <div class="menu-top">
+    <span class="brand" style="font-size:17px"><span class="dot"></span>Cleaning&nbsp;<b>Almaty</b></span>
+    <button class="icbtn" id="menuClose" aria-label="Закрыть меню"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <nav class="menu-nav">
+    <a class="mlink" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 9.6V20h12V9.6"/><path d="M10 20v-5h4v5"/></svg><span>Главная</span></a>
+    <div class="mcat">Уборка квартир и помещений</div>
+<a class="mlink" href="uborka-kvartiry-posle-remonta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 8h5l2 2v9a1 1 0 01-1 1H9a1 1 0 01-1-1V9a1 1 0 011-1z"/><path d="M9 8V5h3V3h-2"/><path d="M16 6h2M16 9h2.5M17 4h1.5"/></svg><span>Уборка квартиры после ремонта</span></a>
+<a class="mlink" href="uborka-zapuschennyh-kvartir.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3l4 4-7 7-4-4 7-7z"/><path d="M7 10l-3.5 8 8-3.5"/></svg><span>Уборка запущенной квартиры</span></a>
+<a class="mlink" href="uborka-posle-zatopleniya.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 4 5 6.5 5 9a5 5 0 01-10 0c0-2.5 2-5 5-9z"/></svg><span>Уборка после затопления</span></a>
+<a class="mlink" href="generalnaya-uborka.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5 13.8 11.3 12 16l-1.8-4.7L5.5 9.5l4.7-1.8L12 3z"/><path d="M18 16l.7 1.8L20.5 18.5 18.7 19.2 18 21l-.7-1.8L15.5 18.5l1.8-.7L18 16z"/></svg><span>Генеральная уборка</span></a>
+<a class="mlink" href="ezhednevnaya-uborka.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Ежедневная уборка</span></a>
+<a class="mlink" href="srochnaya-uborka.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Срочная уборка</span></a>
+<a class="mlink" href="uborka-posle-pozhara.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3-2 4-2 7a2 2 0 004 0c0-1-.5-2-.5-2 2 1 3.5 3 3.5 5.5a5 5 0 01-10 0C7 9.5 11 8 12 3z"/></svg><span>Уборка после пожара</span></a>
+<a class="mlink" href="uborka-kuhni.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M4 13h16"/><circle cx="8" cy="6" r="1.4"/><circle cx="12" cy="6" r="1.4"/><circle cx="16" cy="6" r="1.4"/><path d="M7.5 16.5h2M14.5 16.5h2"/></svg><span>Уборка кухни</span></a>
+<a class="mlink" href="uborka-vannoj-i-tualeta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16v3a4 4 0 01-4 4H8a4 4 0 01-4-4v-3z"/><path d="M6 11V6a2 2 0 012-2 2 2 0 012 2"/><path d="M9.5 6h1M6 19l-1 2M19 19l1 2"/></svg><span>Уборка ванной и туалета</span></a>
+<a class="mlink" href="uborka-domov-i-kottedzhej.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 9.6V20h12V9.6"/><path d="M10 20v-5h4v5"/></svg><span>Уборка домов и коттеджей</span></a>
+<div class="mcat">Мойка и фасады</div>
+<a class="mlink" href="mojka-okon.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1.5"/><path d="M4 12h16M12 3v18"/></svg><span>Мойка окон</span></a>
+<a class="mlink" href="moyka-natyazhnyh-potolkov.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M5 6c2 4 4 6 7 6s5-2 7-6"/><path d="M12 12v8M9 20h6"/></svg><span>Мойка натяжных потолков</span></a>
+<a class="mlink" href="mojka-balkonov-i-lodzhij.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="9" rx="1"/><path d="M4 12h16v8H4z"/><path d="M8 12v8M12 12v8M16 12v8"/></svg><span>Мойка балконов и лоджий</span></a>
+<a class="mlink" href="myte-vitrin.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M7 6l10 12"/></svg><span>Мытьё витрин</span></a>
+<a class="mlink" href="moyka-fasadov-zdaniy.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M8.5 6h2M13.5 6h2M8.5 10h2M13.5 10h2M8.5 14h2M13.5 14h2M10 21v-4h4v4"/></svg><span>Мойка фасадов зданий</span></a>
+<div class="mcat">Коммерческая уборка</div>
+<a class="mlink" href="uborka-ofisov.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="1"/><path d="M8 8V5a1 1 0 011-1h6a1 1 0 011 1v3"/><path d="M3 13h18"/></svg><span>Уборка офисов</span></a>
+<a class="mlink" href="uborka-prilegayushchej-territorii.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a5 5 0 00-3 9 4 4 0 003 6 4 4 0 003-6 5 5 0 00-3-9z"/><path d="M12 12v9"/></svg><span>Уборка прилегающей территории</span></a>
+<a class="mlink" href="uborka-biznes-tsentry.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2"/></svg><span>Уборка бизнес-центров</span></a>
+<a class="mlink" href="uborka-podzemnyh-parkingov.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9.5 16V8h3a2.5 2.5 0 010 5h-3"/></svg><span>Уборка подземных паркингов</span></a>
+<a class="mlink" href="uborka-fitnes-kluby.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9v6M4.5 10v4M17.5 9v6M19.5 10v4M6.5 12h11"/></svg><span>Уборка фитнес-клубов</span></a>
+<a class="mlink active" href="uborka-salon-krasoty.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="7" r="2.2"/><circle cx="6.5" cy="17" r="2.2"/><path d="M8.5 8.5L20 18M8.5 15.5L20 6"/></svg><span>Уборка салонов красоты</span></a>
+<a class="mlink" href="uborka-magaziny.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l1-5h14l1 5"/><path d="M4 9a2 2 0 004 0 2 2 0 004 0 2 2 0 004 0 2 2 0 004 0"/><path d="M5 11v9h14v-9"/><path d="M10 20v-5h4v5"/></svg><span>Уборка магазинов</span></a>
+<div class="mcat">Химчистка</div>
+<a class="mlink" href="himchistka-mebeli.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11V8a2 2 0 012-2h10a2 2 0 012 2v3"/><path d="M3 12a2 2 0 012 2v3h14v-3a2 2 0 012-2 2 2 0 00-2-2 2 2 0 00-2 2v1H7v-1a2 2 0 00-2-2 2 2 0 00-2 2z"/><path d="M5 17v2M19 17v2"/></svg><span>Химчистка мягкой мебели</span></a>
+<a class="mlink" href="himchistka-matrasa.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="9" rx="2"/><path d="M3 17l1 2M21 17l-1 2M7 11v3M12 11v3M17 11v3"/></svg><span>Химчистка матраса на дому</span></a>
+<a class="mlink" href="himchistka-kresel.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11V8a2 2 0 012-2h8a2 2 0 012 2v3"/><path d="M5 12a2 2 0 012 2v3h10v-3a2 2 0 012-2 2 2 0 00-2-2 2 2 0 00-2 2v1H9v-1a2 2 0 00-2-2 2 2 0 00-2 2z"/><path d="M7 17v2M17 17v2"/></svg><span>Химчистка кресел</span></a>
+<a class="mlink" href="himchistka-divanov.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11V8a2 2 0 012-2h10a2 2 0 012 2v3"/><path d="M3 12a2 2 0 012 2v3h14v-3a2 2 0 012-2 2 2 0 00-2-2 2 2 0 00-2 2v1H7v-1a2 2 0 00-2-2 2 2 0 00-2 2z"/><path d="M5 17v2M19 17v2"/></svg><span>Химчистка диванов</span></a>
+
+  </nav>
+  <div class="menu-sec">
+    <a class="btn btn-cta js-consult" href="https://wa.me/77473331774" data-msg="Здравствуйте! Хочу бесплатную консультацию по уборке."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16v10H9l-4 3.5z"/><path d="M8 9.5h8M8 12.5h5"/></svg>Бесплатная консультация</a>
+    <a class="btn btn-ghost" href="https://www.instagram.com/cleaning_almaty_bm/" target="_blank" rel="noopener" style="margin-top:10px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r="1.1" fill="currentColor" stroke="none"/></svg>Мы в Instagram</a>
+  </div>
+  <div class="dev">
+    Разработка и продвижение — <a href="https://wa.me/77074534518" target="_blank" rel="noopener">Anuken</a>
+  </div>
+</aside>
+
+<section class="svc-hero">
+  <div class="wrap">
+    <button class="back" id="backBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Назад</button>
+    <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="6.5" cy="7" r="2.2"/><circle cx="6.5" cy="17" r="2.2"/><path d="M8.5 8.5L20 18M8.5 15.5L20 6"/></svg></div>
+    <h1 class="svc-title" data-aos="fade-up">Уборка салонов красоты</h1>
+    <div class="svc-bar" data-aos="fade-up"></div>
+    <p class="svc-intro" data-aos="fade-up">Поддерживаем безупречную чистоту салонов красоты с дезинфекцией.</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:18px">
+  <div class="wrap">
+    <div class="sec-head" data-aos="fade-up">
+      <span class="sec-eye">Что входит</span>
+      <h2 class="sec-title">Что мы делаем</h2>
+    </div>
+    <div class="feat"><div class="feat-item" data-aos="fade-up"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 6.5"/></svg></div><div><h4>Рабочие зоны</h4></div></div><div class="feat-item" data-aos="fade-up"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 6.5"/></svg></div><div><h4>Дезинфекция</h4></div></div><div class="feat-item" data-aos="fade-up"><div class="feat-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 6.5"/></svg></div><div><h4>Удобный график</h4></div></div></div>
+    <div class="cta-sec">
+      <a class="btn btn-cta js-consult" href="https://wa.me/77473331774" data-msg="Здравствуйте! Хочу бесплатную консультацию по услуге «Уборка салонов красоты»."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16v10H9l-4 3.5z"/><path d="M8 9.5h8M8 12.5h5"/></svg>Бесплатная консультация</a>
+      <a class="btn btn-ghost js-wa" href="https://wa.me/77473331774" data-msg="Здравствуйте! Вопрос по услуге «Уборка салонов красоты»."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 20.4l1.3-3.7A7.5 7.5 0 1112 19.5a7.5 7.5 0 01-3.6-.9l-4.8 1.8z"/><path d="M9.1 8.9c-.2 0-.5.1-.7.4-.3.3-.9.8-.9 2s.9 2.4 1 2.5c.1.2 1.8 2.7 4.3 3.7 2 .8 2.5.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1-.1-.1-.3-.2-.5-.3-.3-.2-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.7.9c-.1.1-.3.2-.5.1-.3-.1-1.1-.4-2-1.2-.7-.7-1.2-1.4-1.4-1.7-.1-.2 0-.4.1-.5l.4-.4c.1-.2.2-.3.2-.5.1-.2 0-.3 0-.4 0-.1-.6-1.4-.8-1.9-.2-.4-.4-.4-.5-.4h-.2z"/></svg>Написать в WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft-grid">
+      <div>
+        <a href="index.html" class="brand"><span class="dot"></span>Cleaning&nbsp;<b>Almaty</b></a>
+        <p style="color:var(--muted);line-height:1.6;max-width:320px;margin:0">Профессиональный клининг и химчистка в Алматы. Оборудование Karcher и безопасная профхимия.</p>
+        <div class="ft-contact" style="margin-top:18px">
+          <a href="tel:+77473331774"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>+7 747 333 1774</a>
+          <a class="js-wa" href="https://wa.me/77473331774" data-msg="Здравствуйте! Пишу с сайта Cleaning Almaty."><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 20.4l1.3-3.7A7.5 7.5 0 1112 19.5a7.5 7.5 0 01-3.6-.9l-4.8 1.8z"/><path d="M9.1 8.9c-.2 0-.5.1-.7.4-.3.3-.9.8-.9 2s.9 2.4 1 2.5c.1.2 1.8 2.7 4.3 3.7 2 .8 2.5.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1-.1-.1-.3-.2-.5-.3-.3-.2-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.7.9c-.1.1-.3.2-.5.1-.3-.1-1.1-.4-2-1.2-.7-.7-1.2-1.4-1.4-1.7-.1-.2 0-.4.1-.5l.4-.4c.1-.2.2-.3.2-.5.1-.2 0-.3 0-.4 0-.1-.6-1.4-.8-1.9-.2-.4-.4-.4-.5-.4h-.2z"/></svg>WhatsApp</a>
+          <a href="https://www.instagram.com/cleaning_almaty_bm/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r="1.1" fill="currentColor" stroke="none"/></svg>Instagram</a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-h">Популярные услуги</div>
+        <div class="ft-links"><a href="uborka-kvartiry-posle-remonta.html">Уборка квартиры после ремонта</a>
+<a href="uborka-zapuschennyh-kvartir.html">Уборка запущенной квартиры</a>
+<a href="uborka-posle-zatopleniya.html">Уборка после затопления</a>
+<a href="mojka-okon.html">Мойка окон</a>
+<a href="moyka-natyazhnyh-potolkov.html">Мойка натяжных потолков</a>
+<a href="mojka-balkonov-i-lodzhij.html">Мойка балконов и лоджий</a>
+<a href="uborka-ofisov.html">Уборка офисов</a>
+<a href="uborka-prilegayushchej-territorii.html">Уборка прилегающей территории</a>
+<a href="uborka-biznes-tsentry.html">Уборка бизнес-центров</a>
+<a href="himchistka-mebeli.html">Химчистка мягкой мебели</a>
+<a href="himchistka-matrasa.html">Химчистка матраса на дому</a>
+<a href="himchistka-kresel.html">Химчистка кресел</a>
+</div>
+      </div>
+      <div>
+        <div class="ft-h">Контакты</div>
+        <div class="ft-links">
+          <span style="color:var(--muted)">Алматы</span>
+          <a href="tel:+77473331774">+7 747 333 1774</a>
+          <a class="js-wa" href="https://wa.me/77473331774" data-msg="Здравствуйте! Пишу с сайта Cleaning Almaty.">Написать в WhatsApp</a>
+          <a href="https://www.instagram.com/cleaning_almaty_bm/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="ft-dev">
+      Разработка и продвижение — <a href="https://wa.me/77074534518" target="_blank" rel="noopener">Anuken</a>
+    </div>
+  </div>
+</footer>
+
+<nav class="mbar">
+  <a class="js-wa" href="https://wa.me/77473331774" data-msg="Здравствуйте! Пишу с сайта Cleaning Almaty."><span class="mic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.6 20.4l1.3-3.7A7.5 7.5 0 1112 19.5a7.5 7.5 0 01-3.6-.9l-4.8 1.8z"/><path d="M9.1 8.9c-.2 0-.5.1-.7.4-.3.3-.9.8-.9 2s.9 2.4 1 2.5c.1.2 1.8 2.7 4.3 3.7 2 .8 2.5.7 2.9.6.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .1-1.1-.1-.1-.3-.2-.5-.3-.3-.2-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.7.9c-.1.1-.3.2-.5.1-.3-.1-1.1-.4-2-1.2-.7-.7-1.2-1.4-1.4-1.7-.1-.2 0-.4.1-.5l.4-.4c.1-.2.2-.3.2-.5.1-.2 0-.3 0-.4 0-.1-.6-1.4-.8-1.9-.2-.4-.4-.4-.5-.4h-.2z"/></svg></span><span class="mlbl">WhatsApp</span></a>
+  <a href="tel:+77473331774"><span class="mic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg></span><span class="mlbl">Звонок</span></a>
+  <a href="https://www.instagram.com/cleaning_almaty_bm/" target="_blank" rel="noopener"><span class="mic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="16.8" cy="7.2" r="1.1" fill="currentColor" stroke="none"/></svg></span><span class="mlbl">Instagram</span></a>
+</nav>
+<button class="fab fab-up" id="upFab" aria-label="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V6M6 11l6-6 6 6"/></svg></button>
+<button class="fab" id="backFab" aria-label="Назад" style="bottom:138px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+(function(){
+  var root=document.documentElement;
+  var SUN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/></svg>',MOON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14a8 8 0 01-10-10 8 8 0 1010 10z"/></svg>';
+  var tb=document.getElementById('themeBtn');
+  function paint(){tb.innerHTML=root.getAttribute('data-theme')==='night'?SUN:MOON;}
+  paint();
+  tb.addEventListener('click',function(){var t=root.getAttribute('data-theme')==='night'?'day':'night';root.setAttribute('data-theme',t);try{localStorage.setItem('ca-theme',t);}catch(e){}paint();});
+  var menu=document.getElementById('menu'),scrim=document.getElementById('scrim');
+  function om(){menu.classList.add('on');scrim.classList.add('on');menu.setAttribute('aria-hidden','false');}
+  function cm(){menu.classList.remove('on');scrim.classList.remove('on');menu.setAttribute('aria-hidden','true');}
+  document.getElementById('menuBtn').addEventListener('click',om);
+  document.getElementById('menuClose').addEventListener('click',cm);
+  scrim.addEventListener('click',cm);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')cm();});
+  var upFab=document.getElementById('upFab'),backFab=document.getElementById('backFab');
+  window.addEventListener('scroll',function(){var s=window.scrollY>320;upFab.classList.toggle('show',s);if(backFab)backFab.classList.toggle('show',s);});
+  upFab.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+  if(backFab)backFab.addEventListener('click',function(){history.back();});
+  var bb=document.getElementById('backBtn');if(bb)bb.addEventListener('click',function(){history.back();});
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(window.AOS)AOS.init({duration:600,easing:'ease-out',once:true,offset:60,disable:rm});
+})();
+</script>
+</body>
+</html>
